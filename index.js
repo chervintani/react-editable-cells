@@ -3,7 +3,15 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import './index.css';
 import moment from 'moment';
-import { Table, Input, Button, Popconfirm, Form, DatePicker, TimePicker } from 'antd';
+import {
+  Table,
+  Input,
+  Button,
+  Popconfirm,
+  Form,
+  DatePicker,
+  TimePicker
+} from 'antd';
 const EditableContext = React.createContext(null);
 
 const EditableRow = ({ index, ...props }) => {
@@ -27,17 +35,17 @@ const EditableCell = ({
   ...restProps
 }) => {
   const [editing, setEditing] = useState(false);
-  const [dateTimeString, setDateTimeString] = useState("");
-  const [dateString, setDateString] = useState("");
-  const [timeString, setTimeString] = useState("");
+  const [dateTimeString, setDateTimeString] = useState('');
+  const [dateString, setDateString] = useState('');
+  const [timeString, setTimeString] = useState('');
   const inputRef = useRef(null);
   const inputRef2 = useRef(null);
   const form = useContext(EditableContext);
   useEffect(() => {
     if (editing) {
-      setDateString(children[1].toString().substring(0,8))
+      setDateString(children[1].toString().substring(0, 8));
       // setTimeString(children[1].toString().substring(9,children[1].toString().length))
-      setTimeString(children[1].toString())
+      setTimeString(children[1].toString());
       inputRef.current.focus();
     }
   }, [editing]);
@@ -49,12 +57,12 @@ const EditableCell = ({
     });
   };
 
-  const save = async (time) => {
+  const save = async time => {
     try {
       const values = await form.validateFields();
       values.name = dateTimeString;
       // console.log('dateTimeString',`${dateTimeString} ${time}`)
-      let name = `${dateString} ${time}`
+      let name = `${dateString} ${time}`;
       toggleEdit();
       handleSave({ ...record, name: name });
     } catch (errInfo) {
@@ -62,19 +70,19 @@ const EditableCell = ({
     }
   };
 
-  const onDoneDate = (e) => {
-    console.log(moment(e).format('MM/DD/YY'))
+  const onDoneDate = e => {
+    console.log(moment(e).format('MM/DD/YY'));
     // console.log(children[1].toString().substring(0,8))
-    setDateString(moment(e).format('MM/DD/YY'))
+    setDateString(moment(e).format('MM/DD/YY'));
     inputRef2.current.focus();
-    return setDateTimeString(moment(e).format('MM/DD/YY'))
-  }
+    return setDateTimeString(moment(e).format('MM/DD/YY'));
+  };
 
-  const onDoneTime = async (e) => {
-    console.log(moment(e).format('hh:mm A'))
+  const onDoneTime = async e => {
+    console.log(moment(e).format('hh:mm A'));
     // setDateTimeString(`${dateTimeString} ${moment(e).format('hh:mm A')}`)
-    save(moment(e).format('hh:mm A'))
-  }
+    save(moment(e).format('hh:mm A'));
+  };
 
   let childNode = children;
 
@@ -194,7 +202,7 @@ class EditableTable extends React.Component {
   };
   handleSave = row => {
     // row.name = moment('2021-08-05T15:15:36.000Z').format('MM/DD/YYYY, h:mm:ss a');
-    console.log('row.name',row);
+    console.log('row.name', row);
 
     const newData = [...this.state.dataSource];
     const index = newData.findIndex(item => row.key === item.key);
