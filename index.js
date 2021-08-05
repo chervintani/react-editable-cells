@@ -90,7 +90,8 @@ const EditableCell = ({
     childNode = editing ? (
       <Form.Item
         style={{
-          margin: 0
+          margin: 0,
+          display: 'flex'
         }}
         name={dataIndex}
         rules={[
@@ -137,7 +138,7 @@ class EditableTable extends React.Component {
       {
         title: 'name',
         dataIndex: 'name',
-        width: '30%',
+        width: '60%',
         editable: true
       },
       {
